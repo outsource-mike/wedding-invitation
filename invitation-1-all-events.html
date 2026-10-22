@@ -269,7 +269,7 @@
       <div><label for="g-name">Your Name</label><input id="g-name" name="name" type="text" required placeholder="Full name"></div>
       <div><label for="g-msg">Your blessings for the couple</label><textarea id="g-msg" name="message" placeholder="Write your heartfelt wishes…"></textarea></div>
       <button class="btn" type="submit">Send Blessings 🙏</button>
-      <p class="form-note">Demo only — this sample doesn't save yet. Hosting collects every blessing in one place for the couple.</p>
+      <p class="form-note">Your blessing is saved privately for Pragati &amp; Shubham. 💛</p>
     </form>
   </div>
 </section>
@@ -318,8 +318,9 @@
   function renderWishes(){if(!wall)return;wall.innerHTML='';seedWishes.forEach(function(w){var d=document.createElement('div');d.className='wish';var p=document.createElement('p');p.className='wtext';p.textContent='“'+w.t+'”';var f=document.createElement('p');f.className='wfrom';f.textContent='— '+w.f;d.appendChild(p);d.appendChild(f);wall.appendChild(d);});}
   renderWishes();
 
+  var SCRIPT_URL="https://script.google.com/macros/s/AKfycbxP4AIfi9RFkJPMhVeKpZgxdtbCoK5UZw2x2HEO5TSVjqlJh8LaZDUwf6yIt_0GUtsv/exec";
   var form=document.getElementById('rsvpForm');
-  if(form){form.addEventListener('submit',function(e){e.preventDefault();var name=(form.name.value||'').trim();var msg=(form.message.value||'').trim();if(!name){form.name.focus();return;}if(msg){seedWishes.unshift({t:msg,f:name});renderWishes();}form.innerHTML='<p class="thanks">🙏 Thank you, '+name.replace(/[<>&]/g,'')+'!<br>Your blessing means the world to us. 💛</p>';});}
+  if(form){form.addEventListener('submit',function(e){e.preventDefault();var name=(form.name.value||'').trim();var msg=(form.message.value||'').trim();if(!name){form.name.focus();return;}if(SCRIPT_URL.indexOf('http')===0){try{fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',body:new URLSearchParams({name:name,message:msg,page:document.title})});}catch(err){}}if(msg){seedWishes.unshift({t:msg,f:name});renderWishes();}form.innerHTML='<p class="thanks">🙏 Thank you, '+name.replace(/[<>&]/g,'')+'!<br>Your blessing means the world to us. 💛</p>';});}
 
   var btn=document.getElementById('musicBtn'),actx=null,nodes=[],playing=false;
   function startAudio(){var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;actx=new AC();var master=actx.createGain();master.gain.value=0;master.connect(actx.destination);var filter=actx.createBiquadFilter();filter.type='lowpass';filter.frequency.value=900;filter.connect(master);var freqs=[146.83,220.00,293.66];freqs.forEach(function(f,i){var o=actx.createOscillator();o.type='sine';o.frequency.value=f;var g=actx.createGain();g.gain.value=0.33;var lfo=actx.createOscillator();lfo.frequency.value=0.08+i*0.03;var lg=actx.createGain();lg.gain.value=0.07;lfo.connect(lg);lg.connect(g.gain);o.connect(g);g.connect(filter);o.start();lfo.start();nodes.push(o,lfo);});nodes._master=master;master.gain.linearRampToValueAtTime(0.05,actx.currentTime+2.5);}
