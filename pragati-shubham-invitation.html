@@ -412,7 +412,7 @@
   if('IntersectionObserver' in window&&!reduce){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.12});rv.forEach(function(r){io.observe(r);});}else{rv.forEach(function(r){r.classList.add('in');});}
 
   /* blessings + wall */
-  var seed=[{t:"तुमच्या नव्या आयुष्याची सुरुवात सुखाची आणि प्रेमाने भरलेली होवो!",f:"आजी आणि आजोबा"},{t:"प्रगती आणि शुभम यांचे सहजीवन प्रेमाने आणि आनंदाने बहरत राहो!",f:"नाशिकचे मित्रमैत्रिणी"}];
+  var seed=[{t:"तुमच्या नव्या आयुष्याची सुरुवात सुखाची आणि प्रेमाने भरलेली होवो!",f:"आजी आणि आजोबा"},{t:"प्रगती आणि शुभम यांचे सहजीवन प्रेमाने आणि आनंदाने बहरत राहो!",f:"दादा आणि वहिनी"}];
   var wall=document.getElementById('wishwall');
   function rw(){if(!wall)return;wall.innerHTML='';seed.forEach(function(w){var d=document.createElement('div');d.className='wish glass';var p=document.createElement('p');p.className='wtext';p.textContent='“'+w.t+'”';var f=document.createElement('p');f.className='wfrom';f.textContent='— '+w.f;d.appendChild(p);d.appendChild(f);wall.appendChild(d);});}
   rw();
